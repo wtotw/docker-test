@@ -5,7 +5,7 @@ services:
     image: docker_php:step5
     build: .
     ports:
-      - "8000:8000"
+      - '8000:8000'
     environment:
       - DB_HOST=mysql
       - DB_DATABASE=sample
@@ -19,7 +19,7 @@ services:
   mysql:
     image: mysql:5.7
     ports:
-      - "3306:3306"
+      - '3306:3306'
     volumes:
       - laravel:/var/lib/mysql
     environment:
