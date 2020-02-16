@@ -13,7 +13,8 @@ RUN curl -sSfL https://deb.nodesource.com/setup_10.x | bash - \
 
 ARG BUNDLE_INSTALL_ARGS="-j 4"
 COPY Gemfile Gemfile.lock ./
-RUN bundle install ${BUNDLE_INSTALL_ARGS}
+RUN bundle config --local disable_platform_warnings true \
+    && bundle install ${BUNDLE_INSTALL_ARGS}
 
 COPY package.json yarn.lock ./
 RUN yarn install
