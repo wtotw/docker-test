@@ -13,13 +13,14 @@ RUN curl -sSfL https://deb.nodesource.com/setup_10.x | bash - \
 
 ARG BUNDLE_INSTALL_ARGS="-j 4"
 COPY Gemfile Gemfile.lock ./
-RUN bundle install ${BUNDLE_INSTALL_ARGS}
+RUN bundle config --local disable_platform_warnings true \
+    && bundle install ${BUNDLE_INSTALL_ARGS}
 
 COPY package.json yarn.lock ./
 RUN yarn install
 
-COPY --from=node:10.15.3-stretch /usr/local/ /usr/local/
-COPY --from=node:10.15.3-stretch /opt/ /opt/
+COPY --from=node:12.16.0-stretch /usr/local/ /usr/local/
+COPY --from=node:12.16.0-stretch /opt/ /opt/
 
 COPY docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
