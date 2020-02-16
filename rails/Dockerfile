@@ -16,6 +16,9 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle config --local disable_platform_warnings true \
     && bundle install ${BUNDLE_INSTALL_ARGS}
 
+COPY package.json yarn.lock ./
+RUN yarn install
+
 COPY --from=node:10.15.3-stretch /usr/local/ /usr/local/
 COPY --from=node:10.15.3-stretch /opt/ /opt/
 
