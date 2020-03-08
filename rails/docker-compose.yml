@@ -9,3 +9,36 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
+    stdin_open: true
+    tty: true
+    environment:
+      - DISABLE_SPRING=1
+      - WEBPACKER_DEV_SERVER_HOST=webpack
+      - WEBPACKER_DEV_SERVER_PUBLIC=localhost:3035
+
+  spring:
+    build: .
+    command: spring server
+    entrypoint: /docker-entrypoint-spring.sh
+    init: true
+    pid: host
+    environment:
+      - SPRING_SOCKET=/tmp/spring/spring.sock
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - spring-tmp:/tmp/spring
+
+  webpack:
+    build: .
+    command: ruby ./bin/webpack-dev-server
+    ports:
+      - "3035:3035"
+    environment:
+      - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+volumes:
+  spring-tmp:

@@ -22,8 +22,8 @@ COPY --from=node:12.16.0-stretch /opt/ /opt/
 COPY package.json yarn.lock ./
 RUN yarn install
 
-COPY docker-entrypoint.sh /
-RUN chmod +x /docker-entrypoint.sh
+COPY docker-entrypoint*.sh /
+RUN chmod +x /docker-entrypoint*.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 COPY . ./
