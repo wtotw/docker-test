@@ -6,7 +6,6 @@ services:
     image: jupyter/datascience-notebook:e255f1aa00b2
     command: >-
       start.sh jupyter lab
-      --NotebookApp.token=a00f0f402f2e57bbfd8e1ffa6a0b7e18f48775eff4f2aafa
       --NotebookApp.password=sha1:941acd3ba3dc:3364b2f544cabbf361d27305a29df218171df51a
     ports:
       - 8888:8888
