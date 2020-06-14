@@ -4,15 +4,17 @@ services:
   jupyter:
     user: root
     image: jupyter/datascience-notebook:e255f1aa00b2
+    build: .
+    # pw:secret
     command: >-
       start.sh jupyter lab
       --NotebookApp.password=sha1:941acd3ba3dc:3364b2f544cabbf361d27305a29df218171df51a
     ports:
       - 8888:8888
+    shm_size: 4G
     working_dir: /home/jovyan/work
     volumes:
       - .:/home/jovyan/work
-    environment:
-      - NB_UID=501
-      - NB_GID=501
-      - CHOWN_HOME=yes
+    user: "501"
+    group_add:
+      - users
